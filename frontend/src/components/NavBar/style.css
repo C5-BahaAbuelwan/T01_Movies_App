@@ -1,0 +1,16 @@
+.NavBar2{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    background-color: azure;
+}
+
+.navbar-expand-lg{
+    position: sticky;
+    
+}
+
+.NavBar1 .Container{
+    width: 100%;
+}

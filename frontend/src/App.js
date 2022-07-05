@@ -1,11 +1,16 @@
+import Button from 'react-bootstrap/Button'
+import NavBar from './components/NavBar';
+import Slider from './components/Slider';
+import Movies from './components/move';
 
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-     <h1>test</h1>
-       
+    <div className="App">  
+    <NavBar/>
+    <Slider/>
+    <Movies/>
     </div>
   );
 }
