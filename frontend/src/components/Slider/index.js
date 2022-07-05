@@ -7,8 +7,7 @@ function Slider() {
         <img
           className="d-block w-100"
           src="https://static1.colliderimages.com/wordpress/wp-content/uploads/2022/01/The-Best-Movie-Franchises-To-Binge-Watch.jpg?q=50&fit=contain&w=1500&h=750&dpr=1.5"
-          alt="First slide"
-        />
+          alt="First slide" height="300"        />
         <Carousel.Caption>
           <h3>First slide label</h3>
           <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
@@ -18,7 +17,7 @@ function Slider() {
         <img
           className="d-block w-100"
           src="https://images.indianexpress.com/2022/04/memory-movie-review-.jpg"
-          alt="Second slide"
+          alt="Second slide" height="300" 
         />
 
         <Carousel.Caption>
@@ -30,7 +29,7 @@ function Slider() {
         <img
           className="d-block w-100"
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8hEhzVhGxPeLUMWeNO3oneZpz8acaZXKTww&usqp=CAU"
-          alt="Third slide"
+          alt="Third slide" height="300" 
         />
 
         <Carousel.Caption>
