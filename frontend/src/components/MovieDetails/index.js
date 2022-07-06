@@ -23,7 +23,7 @@ const MovieDetails = () => {
         `https://api.themoviedb.org/3/movie/${id}?language=en-US&api_key=1bfa430aada4409bfa6a3c5528128e8a`
       )
       .then((result) => {
-        // console.log(result.data);
+        
         setMovieDetails(result.data);
       })
       .catch((err) => {
@@ -42,15 +42,7 @@ const MovieDetails = () => {
     console.log(favMovies);
   };
 
-  console.log(movieDetails);
-  var divStyle = {
-    backgroundImage:
-      "url(" +
-      "https://image.tmdb.org/t/p/w500/" +
-      movieDetails.poster_path +
-      ")",
-    // width: '300px'
-  };
+  console.log(movieDetails);    
 
   return (
     <div className="MovieDetailsContainer" /*  style={divStyle} */>

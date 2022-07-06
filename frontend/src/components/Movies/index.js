@@ -8,28 +8,43 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Slider from "../Slider";
-
+import Modal from "react-bootstrap/Modal";
+import { AiFillStar } from "react-icons/ai";
 import { useNavigate, useParams } from "react-router-dom";
 import "./style.css";
 
 const Movies = () => {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const navigate = useNavigate();
   let { ids } = useParams();
   const [movies, setMovies] = useState([]);
   const [id, setId] = useState(2);
-
+  const [idPop, setIdPop] = useState("");
   const getMovies = () => {
     axios
       .get(
         "https://api.themoviedb.org/3/movie/popular?api_key=1bfa430aada4409bfa6a3c5528128e8a"
       )
       .then((result) => {
- 
         setMovies(result.data.results);
       })
       .catch((err) => {
         console.log(err);
       });
+  };
+  const addToFavorites = (element) => {
+    console.log(element);
+    let favMovies = localStorage.getItem("Fav")
+      ? JSON.parse(localStorage.getItem("Fav"))
+      : [];
+
+    favMovies.push(element);
+
+    localStorage.setItem("Fav", JSON.stringify(favMovies));
+    console.log(favMovies);
   };
 
   const loadMore = () => {
@@ -53,28 +68,86 @@ const Movies = () => {
   useEffect(() => {
     getMovies();
   }, []);
-  console.log(movies);
-  return (
 
+  return (
     <div className="MoviesContainer">
-      <Slider/>
+      <Slider />
+      <div className="InputSearch">
+      {/* <span aria-hidden="true" class="fa fa-search fa-2x fa-search"></span> */}
+        <input className="SearchBar" placeholder=" Search By Name"/></div>
       <div className="MoviesCard">
+        <h3> 🎞 Popular Movies</h3>
+
         <Container>
           <Row>
+            
             {movies &&
               movies.map((element, index) => {
+                let star = {
+                  width: (element.vote_average / 10) * 220,
+                };
+
                 return (
+                  
                   <Card style={{ width: "18rem" }}>
                     <Card.Img
                       variant="top"
                       src={`https://image.tmdb.org/t/p/w500/${element.poster_path}`}
                       id={element.title}
-                      onClick={(e)=>{navigate(`/movies/${element.id}`)}}
+                      onClick={(e) => {
+                        navigate(`/movies/${element.id}`);
+                      }}
                     />
                     <Card.Body>
-                      <Card.Title>{element.title}</Card.Title>
-                      <Card.Text>{element.overview}</Card.Text>
-                      <Button variant="primary">Go somewhere</Button>
+                      <Card.Title>
+                        {element.title}
+                        
+                      </Card.Title>
+
+                      <Card.Text>
+                        
+                      <div class="stars-1">
+                          <span class="stars-2" style={star}></span>
+                        </div>
+                      </Card.Text>
+                      <Button
+                        variant="primary"
+                        onClick={() => {
+                          setIdPop(element.id);
+                          handleShow();
+                        }}
+                      >
+                        Add To Favorite
+                      </Button>
+
+                      {element.id === idPop ? (
+                        <Modal show={show} onHide={handleClose}>
+                          <Modal.Header closeButton>
+                            <Modal.Title>Add to Favorite</Modal.Title>
+                          </Modal.Header>
+                          <Modal.Body>
+                            Are You sure to add {element.title} to Favorite list
+                            ?{" "}
+                          </Modal.Body>
+                          <Modal.Footer>
+                            <Button variant="secondary" onClick={handleClose}>
+                              Close
+                            </Button>
+                            <Button
+                              variant="primary"
+                              onClick={() => {
+                                console.log(element);
+                                addToFavorites(element);
+                                setShow(false);
+                              }}
+                            >
+                              Sure
+                            </Button>
+                          </Modal.Footer>
+                        </Modal>
+                      ) : (
+                        <></>
+                      )}
                     </Card.Body>
                   </Card>
                 );
@@ -82,13 +155,16 @@ const Movies = () => {
           </Row>
         </Container>
       </div>
-      <button
+      <div className="LoadMore">
+        <button className="load"
         onClick={(e) => {
           loadMore();
         }}
       >
         loadMore
       </button>
+      </div>
+      
     </div>
   );
 };

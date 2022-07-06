@@ -1,0 +1,28 @@
+.moviesCard{
+    display: flex;
+    flex-direction: column;
+   
+    width: 20vw;
+    height: 25vh;
+    border-radius: 5px;
+}
+.imageCardFav{
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    width: 20vw;
+    height: 20vh;
+}
+.Favorites{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 8vh;
+    column-gap: 8vw;
+    /* margin-top: 10vh; */
+}
+.DeleteFromFav{
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+
+}

@@ -1,4 +1,5 @@
 .row {
+    margin-top: 20px;
     --bs-gutter-x: 1.5rem;
     --bs-gutter-y: 0;
     display: flex;
@@ -7,6 +8,8 @@
     /* margin-right: calc(-.5 * var(--bs-gutter-x)); */
     /* margin-left: calc(-.5 * var(--bs-gutter-x)); */
     justify-content: space-between;
+    row-gap: 40px;
+    
 }
 
 @media (max-width: 767px){
@@ -19,5 +22,124 @@
         /* margin-right: calc(-.5 * var(--bs-gutter-x)); */
         /* margin-left: calc(-.5 * var(--bs-gutter-x)); */
         justify-content: center;
+        margin-top: 20px;
     }
+}
+
+
+
+.stars-2{
+    background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/2605/star-rating-sprite.png) repeat-x;
+    background-position: 0 100%;
+    float: left;
+    height: 21px;
+    display: block;
+}
+
+
+.stars-1{
+    background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/2605/star-rating-sprite.png) repeat-x;
+    font-size: 0;
+    height: 21px;
+    line-height: 0;
+    overflow: hidden;
+    text-indent: -999em;
+    width: 220px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+p {
+text-overflow: ellipsis;
+overflow: hidden;
+white-space: nowrap;
+}
+
+.card-body {
+   
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-title {
+    margin-bottom: 0.5rem;
+    align-self: center;
+    /* justify-content: space-between; */
+}
+
+
+h3{
+    text-align: center;
+    padding: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    
+}
+
+.LoadMore{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+
+/* CSS */
+.load {
+  appearance: none;
+  background-color: #000000;
+  border-radius: 40em;
+  border-style: none;
+  box-shadow: #ADCFFF 0 -12px 6px inset;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -.24px;
+  margin: 0;
+  outline: none;
+  padding: 1rem 1.3rem;
+  quotes: auto;
+  text-align: center;
+  text-decoration: none;
+  transition: all .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.load:hover {
+  background-color: #bd00ce;
+  box-shadow: #c300ff 0 -6px 8px inset;
+  transform: scale(1.125);
+}
+
+.load:active {
+  transform: scale(1.025);
+}
+
+@media (min-width: 768px) {
+  .load {
+    font-size: 1.5rem;
+    padding: .75rem 2rem;
+  }
+}
+
+.InputSearch{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #000000d5;
+    padding: 20px;
+   
+}
+.SearchBar{
+    width: 90%;
+    border-radius: 5px;
+    /* height: 90%; */
+   
 }
