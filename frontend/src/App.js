@@ -1,16 +1,23 @@
-import Button from 'react-bootstrap/Button'
-import NavBar from './components/NavBar';
-import Slider from './components/Slider';
-import Movies from './components/Movies';
+import { Routes, Route } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import NavBar from "./components/NavBar";
+import Slider from "./components/Slider";
+import Movies from "./components/Movies";
+import MovieDetails from "./components/MovieDetails";
+import { useParams } from "react-router-dom";
 
-import './App.css';
+import "./App.css";
 
 function App() {
+  const { id } = useParams();
   return (
-    <div className="App">  
-    <NavBar/>
-    <Slider/>
-    <Movies/>
+    <div className="App">
+      <NavBar />
+      <Routes>
+        
+        <Route path="/" element={<Movies />} ></Route>
+        <Route path="/movies/:id"  element={<MovieDetails />} ></Route>
+        </Routes>
     </div>
   );
 }

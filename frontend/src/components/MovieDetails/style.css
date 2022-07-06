@@ -1,0 +1,43 @@
+
+
+.MovieDetailsContainer{
+    overflow: hidden;
+  position: relative;
+      
+}
+
+MovieDetailsContainer{
+    display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-top: 50px;
+        align-items: center;
+        justify-content: space-around;
+    }
+    
+    .ImageContainer{
+    display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    .movieImage{
+    height: 60vh;}
+    
+    .detailsContainer{
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: center;
+        border: 1px solid;
+    }
+    
+    .details{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-wrap: wrap;
+    }
