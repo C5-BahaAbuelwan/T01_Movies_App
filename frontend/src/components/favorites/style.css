@@ -2,15 +2,15 @@
     display: flex;
     flex-direction: column;
    
-    width: 20vw;
-    height: 25vh;
+    width: 16vw;
+    height: 35vh;
     border-radius: 5px;
 }
 .imageCardFav{
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    width: 20vw;
-    height: 20vh;
+    width: 16vw;
+    height: 30vh;
 }
 .Favorites{
     display: flex;

@@ -1,11 +1,13 @@
-
+import { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import Badge from "react-bootstrap/Badge";
+import Button from "react-bootstrap/Button";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { useNavigate, useParams } from "react-router-dom";
 
-function NavBar() {
+function NavBar({ movies }) {
   const navigate = useNavigate();
 
   return (
@@ -36,13 +38,16 @@ function NavBar() {
             </NavDropdown>
           </Nav>
           <Nav>
-            <Nav.Link
+            <Button
+              variant="primary"
               onClick={() => {
                 navigate(`/movies/favorite`);
               }}
             >
-              More deets
-            </Nav.Link>
+              Favorite List <Badge bg="secondary">{movies}</Badge>
+              <span className="visually-hidden">unread messages</span>
+            </Button>
+
             <Nav.Link eventKey={2} href="#memes">
               Dank memes
             </Nav.Link>
