@@ -1,4 +1,4 @@
-
+/* 
 
 .MovieDetailsContainer{
     overflow: hidden;
@@ -40,4 +40,126 @@ MovieDetailsContainer{
         flex-direction: column;
         align-items: center;
         flex-wrap: wrap;
-    }
+    } */
+.MovieDetailsContainer p , .MovieDetailsContainer h5 {
+    color: white;
+}
+.MovieDetailsContainer{
+    border-radius: 20px;
+    display: flex;
+    height: 90%;
+    width: 90%;
+    margin-top: 10px;
+    /* display: flex;
+    flex-direction: row;
+    width: 70vw;
+    align-self: center;
+    gap: 10vw; */
+}
+
+.ImageContainer{
+    border-radius: 20px 0 0 20px;
+    opacity: 1;
+    width: 30%;
+    z-index: 1;
+}
+.movieImage{
+    width: 100%;
+    height: 100%;
+
+    /* height: 50vh; */
+    border-radius: 20px 0 0 20px;
+}
+
+.container1{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: space-between;
+    align-items: center;
+}
+
+.detailsContainer{
+    background-color: rgba(0,0,0,.7);
+    border-radius: 0 20px 20px 0;
+    display: flex;
+    flex-direction: column;
+    padding: 4%;
+    width: 70%;
+    z-index: 1;
+    /* width: 70%; */
+}
+
+.container2 p {
+    white-space: normal;
+}
+
+.container3{
+    
+    
+    width: 70%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 25% 25% 25% 25% ;
+}
+
+.largeContainer{
+    display: flex;
+    height: 90%;
+    position: absolute;
+    top: 10%;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -10px;
+}
+
+.container1 , .container2{
+    height: 30%;
+}
+
+.container3{
+    height: 40%;
+    font-size: large;
+}
+
+#addToFF{
+    background-color: rgba(240, 248, 255, 0);
+    border: none;
+    color: red;
+ 
+}
+
+#removeToFF{
+    background-color: rgba(240, 248, 255, 0);
+    border: none;
+    color: rgb(0, 117, 138);
+}
+
+svg{
+    font-size: x-large;
+}
+
+svg:hover{
+    transform: scale(1.125);
+}
+
+.relatedMovies{
+    margin-top: 20vh;
+    text-align: center;
+    /* padding: 10px; */
+}
+.relatedMovies h5{
+    margin-bottom:5vh;
+}
+
+
+.ContainerForRelated{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 2vw;
+    /* margin-top: 35vh; */
+}

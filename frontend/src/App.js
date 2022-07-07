@@ -11,6 +11,7 @@ import TopRated from "./components/TopRated";
 import Upcoming from "./components/UpcomingMovies";
 import TvShow from "./components/TvShow";
 import TopRaredTvShow from "./components/TopRatedTvShow";
+import Reviews from "./components/Reviews";
 import "./App.css";
 
 
@@ -40,6 +41,7 @@ const getFav = () => {
         <Route path="/movies/upcoming" element={<Upcoming setMoviesLength={setMovies} />}></Route>
         <Route path="/tvshow" element={<TvShow setMoviesLength={setMovies} />}></Route>
         <Route path="/tvShow/toprated" element={<TopRaredTvShow setMoviesLength={setMovies} />}></Route>
+        <Route path="/movies/:id/review" element={<Reviews setMoviesLength={setMovies} />}></Route>
       </Routes>
     </div>
   );

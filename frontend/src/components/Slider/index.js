@@ -16,7 +16,7 @@ function Slider() {
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="https://image.tmdb.org/t/p/w500/vjnLXptqdxnpNJer5fWgj2OIGhL.jpg"
+          src="https://image.tmdb.org/t/p/original/vjnLXptqdxnpNJer5fWgj2OIGhL.jpg"
           alt="Second slide" height="500" 
         />
 
@@ -28,7 +28,7 @@ function Slider() {
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="https://image.tmdb.org/t/p/w500/gG9fTyDL03fiKnOpf2tr01sncnt.jpg"
+          src="https://image.tmdb.org/t/p/original/gG9fTyDL03fiKnOpf2tr01sncnt.jpg"
           alt="Third slide" height="500" 
         />
 
