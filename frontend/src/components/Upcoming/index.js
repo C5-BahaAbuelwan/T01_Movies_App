@@ -1,5 +1,3 @@
-// import axios
-
 import axios from "axios";
 import { useState, useEffect, useContext, createContext } from "react";
 import Button from "react-bootstrap/Button";
@@ -13,9 +11,9 @@ import { AiFillStar } from "react-icons/ai";
 import { useNavigate, useParams } from "react-router-dom";
 import NavBar from "../NavBar";
 import TvShow from "../Upcoming";
-import "./style.css";
 
-const Movies = ({ setMoviesLength }) => {
+const Upcoming = ({ setMoviesLength }) => {
+  const [upcomingArray, setUpcomingArray] = useState([]);
   const [show, setShow] = useState(false);
   const [searchArray, setSearchArray] = useState([]);
   const [input, setInput] = useState("");
@@ -28,36 +26,6 @@ const Movies = ({ setMoviesLength }) => {
   const [id, setId] = useState(2);
   const [tv, setTV] = useState([]);
   const [idPop, setIdPop] = useState("");
-  const getMovies = () => {
-    axios
-      .get(
-        "https://api.themoviedb.org/3/movie/popular?api_key=1bfa430aada4409bfa6a3c5528128e8a&language=en-US&page=1"
-      )
-      .then((result) => {
-        setMovies(result.data.results);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  // let i = 684614;
-
-  const tvSeries = () => {
-    console.log("in tvSeries ");
-    axios
-      .get(
-        "https://api.themoviedb.org/3/genre/tv/list?api_key=1bfa430aada4409bfa6a3c5528128e8a&page&language=en-US"
-      )
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-
 
   const addToFavorites = (element) => {
     console.log(element);
@@ -72,41 +40,56 @@ const Movies = ({ setMoviesLength }) => {
     setMoviesLength(favMovies.length);
     console.log(favMovies);
   };
-  const searchMovies = () => {
-    console.log(input);
 
-    const search1 =
-      movies &&
-      movies.filter((element, index) => {
-        return element.title.toLowerCase().includes(input);
-      });
-    // console.log(input) ;
-    setSearchArray(search1);
-  };
-
-  const loadMore = () => {
-   
-    setId(id + 1);
-  
-   
+  const topRated = () => {
     axios
       .get(
-        `https://api.themoviedb.org/3/movie/popular?api_key=1bfa430aada4409bfa6a3c5528128e8a&language=en-US&page=${id}`
+        "https://api.themoviedb.org/3/movie/upcoming?api_key=1bfa430aada4409bfa6a3c5528128e8a&language=en-US&page=1"
       )
       .then((result) => {
-        setMovies([...movies, ...result.data.results]);
+        console.log(result.data.results);
+        setUpcomingArray(result.data.results);
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
+  const searchMovies = () => {
+    console.log(input);
+
+    const search1 =
+      upcomingArray &&
+      upcomingArray.filter((element, index) => {
+        return element.title.toLowerCase().includes(input);
+      });
+
+    setSearchArray(search1);
+  };
+
+  const loadMore = () => {
+    console.log(id);
+    setId(id + 1);
+
+    axios
+      .get(
+        `
+        https://api.themoviedb.org/3/movie/upcoming?api_key=1bfa430aada4409bfa6a3c5528128e8a&language=en-US&page=${id}`
+      )
+      .then((result) => {
+        setUpcomingArray([...upcomingArray, ...result.data.results]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
-    getMovies();
+    topRated();
   }, []);
 
-  // console.log(input);
   return (
-    <div className="MoviesContainer">
+    <div className="TopRated">
       <Slider />
       <div className="InputSearch">
         {/* <span aria-hidden="true" class="fa fa-search fa-2x fa-search"></span> */}
@@ -120,7 +103,7 @@ const Movies = ({ setMoviesLength }) => {
         />
       </div>
       <div className="MoviesCard">
-        <h3> 🎞 Popular Movies</h3>
+        <h3> 🎞 Upcoming Movies</h3>
 
         <Container>
           <Row>
@@ -178,7 +161,7 @@ const Movies = ({ setMoviesLength }) => {
                                 onClick={() => {
                                   // console.log(element);
                                   addToFavorites(element);
-                                  tvSeries();
+                                  //   tvSeries();
                                   setShow(false);
                                 }}
                               >
@@ -193,8 +176,8 @@ const Movies = ({ setMoviesLength }) => {
                     </Card>
                   );
                 })
-              : movies &&
-                movies.map((element, index) => {
+              : upcomingArray &&
+                upcomingArray.map((element, index) => {
                   let star = {
                     width: (element.vote_average / 10) * 220,
                   };
@@ -246,7 +229,7 @@ const Movies = ({ setMoviesLength }) => {
                                   console.log(element);
 
                                   addToFavorites(element);
-                                  tvSeries();
+                                  //   tvSeries();
                                   setShow(false);
                                 }}
                               >
@@ -274,8 +257,18 @@ const Movies = ({ setMoviesLength }) => {
           loadMore
         </button>
       </div>
+
+      {/* 
+      {upcomingArray &&
+        upcomingArray.map((element, index) => {
+          return (
+            <div>
+              <h3>{element.title}</h3>
+            </div>
+          );
+        })} */}
     </div>
   );
 };
 
-export default Movies;
+export default Upcoming;

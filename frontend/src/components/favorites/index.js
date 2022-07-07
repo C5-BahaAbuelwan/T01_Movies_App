@@ -3,11 +3,12 @@ import Modal from "react-bootstrap/Modal";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-
 import "./style.css";
 
-const Favorite = ({setMoviesLength}) => {
+const Favorite = ({ setMoviesLength }) => {
   const [movies, setMovies] = useState([]);
+  const [updated, setUpdated] = useState(false);
+
   const navigate = useNavigate();
   const [idPop, setIdPop] = useState("");
   const [show, setShow] = useState(false);
@@ -38,12 +39,17 @@ const Favorite = ({setMoviesLength}) => {
     });
     localStorage.setItem("Fav", JSON.stringify(favMovies));
     setMoviesLength(favMovies.length);
+    if (updated) {
+      setUpdated(false);
+    } else {
+      setUpdated(true);
+    }
   };
 
   useEffect(() => {
     getFav();
-  }, [movies]);
-  // console.log(movies);
+  }, [updated]);
+  
   return (
     <div className="container">
       <h3 className="Title"> 💝Favorite List </h3>
@@ -75,8 +81,8 @@ const Favorite = ({setMoviesLength}) => {
                       <Modal.Title>Add to Favorite</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                      Are You sure to Remove {element.title} from Favorite
-                      list ?{" "}
+                      Are You sure to Remove {element.title} from Favorite list
+                      ?{" "}
                     </Modal.Body>
                     <Modal.Footer>
                       <Button variant="secondary" onClick={handleClose}>
