@@ -10,7 +10,7 @@ import Modal from "react-bootstrap/Modal";
 import { AiFillStar } from "react-icons/ai";
 import { useNavigate, useParams } from "react-router-dom";
 import NavBar from "../NavBar";
-import TvShow from "../Upcoming";
+import TvShow from "../UpcomingMovies";
 
 const TopRared = ({ setMoviesLength }) => {
   const [topRatedArray, setTopRatedArray] = useState([]);
@@ -200,7 +200,7 @@ const TopRared = ({ setMoviesLength }) => {
                           </div>
                         </Card.Text>
                         <Button
-                          variant="primary"
+                          variant="dark"
                           onClick={() => {
                             setIdPop(element.id);
                             handleShow();

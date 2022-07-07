@@ -1,5 +1,3 @@
-// import axios
-
 import axios from "axios";
 import { useState, useEffect, useContext, createContext } from "react";
 import Button from "react-bootstrap/Button";
@@ -12,10 +10,10 @@ import Modal from "react-bootstrap/Modal";
 import { AiFillStar } from "react-icons/ai";
 import { useNavigate, useParams } from "react-router-dom";
 import NavBar from "../NavBar";
-import TvShow from "../UpcomingMovies";
-import "./style.css";
+import TvShow from ".";
 
-const Movies = ({ setMoviesLength }) => {
+const Upcoming = ({ setMoviesLength }) => {
+  const [upcomingArray, setUpcomingArray] = useState([]);
   const [show, setShow] = useState(false);
   const [searchArray, setSearchArray] = useState([]);
   const [input, setInput] = useState("");
@@ -28,32 +26,6 @@ const Movies = ({ setMoviesLength }) => {
   const [id, setId] = useState(2);
   const [tv, setTV] = useState([]);
   const [idPop, setIdPop] = useState("");
-  const getMovies = () => {
-    axios
-      .get(
-        "https://api.themoviedb.org/3/movie/popular?api_key=1bfa430aada4409bfa6a3c5528128e8a&language=en-US&page=1"
-      )
-      .then((result) => {
-        setMovies(result.data.results);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const tvSeries = () => {
-    console.log("in tvSeries ");
-    axios
-      .get(
-        "https://api.themoviedb.org/3/genre/tv/list?api_key=1bfa430aada4409bfa6a3c5528128e8a&page&language=en-US"
-      )
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
   const addToFavorites = (element) => {
     console.log(element);
@@ -69,12 +41,26 @@ const Movies = ({ setMoviesLength }) => {
     console.log(favMovies);
   };
 
+  const topRated = () => {
+    axios
+      .get(
+        "https://api.themoviedb.org/3/movie/upcoming?api_key=1bfa430aada4409bfa6a3c5528128e8a&language=en-US&page=1"
+      )
+      .then((result) => {
+        console.log(result.data.results);
+        setUpcomingArray(result.data.results);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const searchMovies = () => {
     console.log(input);
 
     const search1 =
-      movies &&
-      movies.filter((element, index) => {
+      upcomingArray &&
+      upcomingArray.filter((element, index) => {
         return element.title.toLowerCase().includes(input);
       });
 
@@ -82,26 +68,31 @@ const Movies = ({ setMoviesLength }) => {
   };
 
   const loadMore = () => {
+    console.log(id);
     setId(id + 1);
+
     axios
       .get(
-        `https://api.themoviedb.org/3/movie/popular?api_key=1bfa430aada4409bfa6a3c5528128e8a&language=en-US&page=${id}`
+        `
+        https://api.themoviedb.org/3/movie/upcoming?api_key=1bfa430aada4409bfa6a3c5528128e8a&language=en-US&page=${id}`
       )
       .then((result) => {
-        setMovies([...movies, ...result.data.results]);
+        setUpcomingArray([...upcomingArray, ...result.data.results]);
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
   useEffect(() => {
-    getMovies();
+    topRated();
   }, []);
 
   return (
-    <div className="MoviesContainer">
+    <div className="TopRated">
       <Slider />
       <div className="InputSearch">
+        {/* <span aria-hidden="true" class="fa fa-search fa-2x fa-search"></span> */}
         <input
           className="SearchBar"
           placeholder=" Search By Name"
@@ -112,7 +103,7 @@ const Movies = ({ setMoviesLength }) => {
         />
       </div>
       <div className="MoviesCard">
-        <h3> 🎞 Popular Movies</h3>
+        <h3> 🎞 Upcoming Movies</h3>
 
         <Container>
           <Row>
@@ -142,7 +133,8 @@ const Movies = ({ setMoviesLength }) => {
                           </div>
                         </Card.Text>
                         <Button
-                          variant="primary"
+                        style={{ backgroundColor:"#212529", color:"#ffffff",borderColor:"#ffffff"}}
+                          variant="dark"
                           onClick={() => {
                             setIdPop(element.id);
 
@@ -166,11 +158,11 @@ const Movies = ({ setMoviesLength }) => {
                                 Close
                               </Button>
                               <Button
-                                variant="secondary"
+                                variant="primary"
                                 onClick={() => {
                                   // console.log(element);
                                   addToFavorites(element);
-                                  tvSeries();
+                                  //   tvSeries();
                                   setShow(false);
                                 }}
                               >
@@ -185,8 +177,8 @@ const Movies = ({ setMoviesLength }) => {
                     </Card>
                   );
                 })
-              : movies &&
-                movies.map((element, index) => {
+              : upcomingArray &&
+                upcomingArray.map((element, index) => {
                   let star = {
                     width: (element.vote_average / 10) * 220,
                   };
@@ -209,8 +201,8 @@ const Movies = ({ setMoviesLength }) => {
                             <span class="stars-2" style={star}></span>
                           </div>
                         </Card.Text>
-                        <Button  id="addToFav"style={{ backgroundColor:"#212529", color:"#ffffff",borderColor:"#ffffff"}}
-                          variant="primary"
+                        <Button
+                          variant="dark"
                           onClick={() => {
                             setIdPop(element.id);
                             handleShow();
@@ -235,8 +227,10 @@ const Movies = ({ setMoviesLength }) => {
                               <Button
                                 variant="primary"
                                 onClick={() => {
+                                  console.log(element);
+
                                   addToFavorites(element);
-                                  tvSeries();
+                                  //   tvSeries();
                                   setShow(false);
                                 }}
                               >
@@ -264,8 +258,18 @@ const Movies = ({ setMoviesLength }) => {
           loadMore
         </button>
       </div>
+
+      {/* 
+      {upcomingArray &&
+        upcomingArray.map((element, index) => {
+          return (
+            <div>
+              <h3>{element.title}</h3>
+            </div>
+          );
+        })} */}
     </div>
   );
 };
 
-export default Movies;
+export default Upcoming;

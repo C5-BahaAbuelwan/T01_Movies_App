@@ -10,10 +10,10 @@ import Modal from "react-bootstrap/Modal";
 import { AiFillStar } from "react-icons/ai";
 import { useNavigate, useParams } from "react-router-dom";
 import NavBar from "../NavBar";
-import TvShow from "../Upcoming";
+import TvShow from "../UpcomingMovies";
 
-const Upcoming = ({ setMoviesLength }) => {
-  const [upcomingArray, setUpcomingArray] = useState([]);
+const TopRaredTvShow = ({ setMoviesLength }) => {
+  const [topRatedArray, setTopRatedArray] = useState([]);
   const [show, setShow] = useState(false);
   const [searchArray, setSearchArray] = useState([]);
   const [input, setInput] = useState("");
@@ -44,11 +44,11 @@ const Upcoming = ({ setMoviesLength }) => {
   const topRated = () => {
     axios
       .get(
-        "https://api.themoviedb.org/3/movie/upcoming?api_key=1bfa430aada4409bfa6a3c5528128e8a&language=en-US&page=1"
+        "https://api.themoviedb.org/3/tv/top_rated?api_key=1bfa430aada4409bfa6a3c5528128e8a&language=en-US&page=1"
       )
       .then((result) => {
         console.log(result.data.results);
-        setUpcomingArray(result.data.results);
+        setTopRatedArray(result.data.results);
       })
       .catch((err) => {
         console.log(err);
@@ -59,9 +59,9 @@ const Upcoming = ({ setMoviesLength }) => {
     console.log(input);
 
     const search1 =
-      upcomingArray &&
-      upcomingArray.filter((element, index) => {
-        return element.title.toLowerCase().includes(input);
+      topRatedArray &&
+      topRatedArray.filter((element, index) => {
+        return element.name.toLowerCase().includes(input);
       });
 
     setSearchArray(search1);
@@ -73,11 +73,10 @@ const Upcoming = ({ setMoviesLength }) => {
 
     axios
       .get(
-        `
-        https://api.themoviedb.org/3/movie/upcoming?api_key=1bfa430aada4409bfa6a3c5528128e8a&language=en-US&page=${id}`
+        `https://api.themoviedb.org/3/tv/top_rated?api_key=1bfa430aada4409bfa6a3c5528128e8a&language=en-US&page=${id}`
       )
       .then((result) => {
-        setUpcomingArray([...upcomingArray, ...result.data.results]);
+        setTopRatedArray([...topRatedArray, ...result.data.results]);
       })
       .catch((err) => {
         console.log(err);
@@ -103,7 +102,7 @@ const Upcoming = ({ setMoviesLength }) => {
         />
       </div>
       <div className="MoviesCard">
-        <h3> 🎞 Upcoming Movies</h3>
+        <h3> ⭐ TopRated TvShow</h3>
 
         <Container>
           <Row>
@@ -119,13 +118,13 @@ const Upcoming = ({ setMoviesLength }) => {
                       <Card.Img
                         variant="top"
                         src={`https://image.tmdb.org/t/p/w500/${element.poster_path}`}
-                        id={element.title}
+                        id={element.name}
                         onClick={(e) => {
                           navigate(`/movies/${element.id}`);
                         }}
                       />
                       <Card.Body>
-                        <Card.Title>{element.title}</Card.Title>
+                        <Card.Title>{element.name}</Card.Title>
 
                         <Card.Text>
                           <div class="stars-1">
@@ -149,7 +148,7 @@ const Upcoming = ({ setMoviesLength }) => {
                               <Modal.Title>Add to Favorite</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                              Are You sure to add {element.title} to Favorite
+                              Are You sure to add {element.name} to Favorite
                               list ?{" "}
                             </Modal.Body>
                             <Modal.Footer>
@@ -176,8 +175,8 @@ const Upcoming = ({ setMoviesLength }) => {
                     </Card>
                   );
                 })
-              : upcomingArray &&
-                upcomingArray.map((element, index) => {
+              : topRatedArray &&
+                topRatedArray.map((element, index) => {
                   let star = {
                     width: (element.vote_average / 10) * 220,
                   };
@@ -187,13 +186,13 @@ const Upcoming = ({ setMoviesLength }) => {
                       <Card.Img
                         variant="top"
                         src={`https://image.tmdb.org/t/p/w500/${element.poster_path}`}
-                        id={element.title}
+                        id={element.name}
                         onClick={(e) => {
                           navigate(`/movies/${element.id}`);
                         }}
                       />
                       <Card.Body>
-                        <Card.Title>{element.title}</Card.Title>
+                        <Card.Title>{element.name}</Card.Title>
 
                         <Card.Text>
                           <div class="stars-1">
@@ -201,7 +200,7 @@ const Upcoming = ({ setMoviesLength }) => {
                           </div>
                         </Card.Text>
                         <Button
-                          variant="primary"
+                          variant="dark"
                           onClick={() => {
                             setIdPop(element.id);
                             handleShow();
@@ -216,7 +215,7 @@ const Upcoming = ({ setMoviesLength }) => {
                               <Modal.Title>Add to Favorite</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                              Are You sure to add {element.title} to Favorite
+                              Are You sure to add {element.name} to Favorite
                               list ?{" "}
                             </Modal.Body>
                             <Modal.Footer>
@@ -259,8 +258,8 @@ const Upcoming = ({ setMoviesLength }) => {
       </div>
 
       {/* 
-      {upcomingArray &&
-        upcomingArray.map((element, index) => {
+      {topRatedArray &&
+        topRatedArray.map((element, index) => {
           return (
             <div>
               <h3>{element.title}</h3>
@@ -271,4 +270,4 @@ const Upcoming = ({ setMoviesLength }) => {
   );
 };
 
-export default Upcoming;
+export default TopRaredTvShow;

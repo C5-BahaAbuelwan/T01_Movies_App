@@ -12,10 +12,9 @@ import Modal from "react-bootstrap/Modal";
 import { AiFillStar } from "react-icons/ai";
 import { useNavigate, useParams } from "react-router-dom";
 import NavBar from "../NavBar";
-import TvShow from "../UpcomingMovies";
 import "./style.css";
 
-const Movies = ({ setMoviesLength }) => {
+const TvShow = ({ setMoviesLength }) => {
   const [show, setShow] = useState(false);
   const [searchArray, setSearchArray] = useState([]);
   const [input, setInput] = useState("");
@@ -26,12 +25,11 @@ const Movies = ({ setMoviesLength }) => {
   let { ids } = useParams();
   const [movies, setMovies] = useState([]);
   const [id, setId] = useState(2);
-  const [tv, setTV] = useState([]);
   const [idPop, setIdPop] = useState("");
   const getMovies = () => {
     axios
       .get(
-        "https://api.themoviedb.org/3/movie/popular?api_key=1bfa430aada4409bfa6a3c5528128e8a&language=en-US&page=1"
+        "https://api.themoviedb.org/3/tv/popular?api_key=1bfa430aada4409bfa6a3c5528128e8a&language=en-US&page=1"
       )
       .then((result) => {
         setMovies(result.data.results);
@@ -41,19 +39,11 @@ const Movies = ({ setMoviesLength }) => {
       });
   };
 
-  const tvSeries = () => {
-    console.log("in tvSeries ");
-    axios
-      .get(
-        "https://api.themoviedb.org/3/genre/tv/list?api_key=1bfa430aada4409bfa6a3c5528128e8a&page&language=en-US"
-      )
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // let i = 684614;
+
+
+
+
 
   const addToFavorites = (element) => {
     console.log(element);
@@ -68,24 +58,26 @@ const Movies = ({ setMoviesLength }) => {
     setMoviesLength(favMovies.length);
     console.log(favMovies);
   };
-
   const searchMovies = () => {
     console.log(input);
 
     const search1 =
       movies &&
       movies.filter((element, index) => {
-        return element.title.toLowerCase().includes(input);
+        return element.name.toLowerCase().includes(input);
       });
-
+    // console.log(input) ;
     setSearchArray(search1);
   };
 
   const loadMore = () => {
+   
     setId(id + 1);
+  
+   
     axios
       .get(
-        `https://api.themoviedb.org/3/movie/popular?api_key=1bfa430aada4409bfa6a3c5528128e8a&language=en-US&page=${id}`
+        `https://api.themoviedb.org/3/tv/popular?api_key=1bfa430aada4409bfa6a3c5528128e8a&language=en-US&page=${id}`
       )
       .then((result) => {
         setMovies([...movies, ...result.data.results]);
@@ -98,10 +90,12 @@ const Movies = ({ setMoviesLength }) => {
     getMovies();
   }, []);
 
+  // console.log(input);
   return (
     <div className="MoviesContainer">
       <Slider />
       <div className="InputSearch">
+        {/* <span aria-hidden="true" class="fa fa-search fa-2x fa-search"></span> */}
         <input
           className="SearchBar"
           placeholder=" Search By Name"
@@ -112,7 +106,7 @@ const Movies = ({ setMoviesLength }) => {
         />
       </div>
       <div className="MoviesCard">
-        <h3> 🎞 Popular Movies</h3>
+        <h3> 📺 Popular TvShow</h3>
 
         <Container>
           <Row>
@@ -128,13 +122,13 @@ const Movies = ({ setMoviesLength }) => {
                       <Card.Img
                         variant="top"
                         src={`https://image.tmdb.org/t/p/w500/${element.poster_path}`}
-                        id={element.title}
+                        id={element.name}
                         onClick={(e) => {
                           navigate(`/movies/${element.id}`);
                         }}
                       />
                       <Card.Body>
-                        <Card.Title>{element.title}</Card.Title>
+                        <Card.Title>{element.name}</Card.Title>
 
                         <Card.Text>
                           <div class="stars-1">
@@ -158,7 +152,7 @@ const Movies = ({ setMoviesLength }) => {
                               <Modal.Title>Add to Favorite</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                              Are You sure to add {element.title} to Favorite
+                              Are You sure to add {element.name} to Favorite
                               list ?{" "}
                             </Modal.Body>
                             <Modal.Footer>
@@ -166,11 +160,10 @@ const Movies = ({ setMoviesLength }) => {
                                 Close
                               </Button>
                               <Button
-                                variant="secondary"
+                                variant="primary"
                                 onClick={() => {
                                   // console.log(element);
                                   addToFavorites(element);
-                                  tvSeries();
                                   setShow(false);
                                 }}
                               >
@@ -196,21 +189,21 @@ const Movies = ({ setMoviesLength }) => {
                       <Card.Img
                         variant="top"
                         src={`https://image.tmdb.org/t/p/w500/${element.poster_path}`}
-                        id={element.title}
+                        id={element.name}
                         onClick={(e) => {
                           navigate(`/movies/${element.id}`);
                         }}
                       />
                       <Card.Body>
-                        <Card.Title>{element.title}</Card.Title>
+                        <Card.Title>{element.name}</Card.Title>
 
                         <Card.Text>
                           <div class="stars-1">
                             <span class="stars-2" style={star}></span>
                           </div>
                         </Card.Text>
-                        <Button  id="addToFav"style={{ backgroundColor:"#212529", color:"#ffffff",borderColor:"#ffffff"}}
-                          variant="primary"
+                        <Button
+                          variant="dark"
                           onClick={() => {
                             setIdPop(element.id);
                             handleShow();
@@ -225,7 +218,7 @@ const Movies = ({ setMoviesLength }) => {
                               <Modal.Title>Add to Favorite</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                              Are You sure to add {element.title} to Favorite
+                              Are You sure to add {element.name} to Favorite
                               list ?{" "}
                             </Modal.Body>
                             <Modal.Footer>
@@ -235,8 +228,9 @@ const Movies = ({ setMoviesLength }) => {
                               <Button
                                 variant="primary"
                                 onClick={() => {
+                                  console.log(element);
+
                                   addToFavorites(element);
-                                  tvSeries();
                                   setShow(false);
                                 }}
                               >
@@ -268,4 +262,4 @@ const Movies = ({ setMoviesLength }) => {
   );
 };
 
-export default Movies;
+export default TvShow;

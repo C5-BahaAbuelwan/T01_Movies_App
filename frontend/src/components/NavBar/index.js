@@ -20,41 +20,69 @@ function NavBar({ movies }) {
         >
           Baha Movies
         </Navbar.Brand>
+
+        
+
+
+
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link  onClick={() => {
-                navigate("/movies/upcoming");
-              }}>Upcoming</Nav.Link>
-            <Nav.Link onClick={(e) => {
-            navigate("/movies/toprated");
-          }}>TopRated</Nav.Link>
-            <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
+          <Nav className="me-auto"></Nav>
           <Nav>
-            <Button
+          <Nav.Link style={{ color: "#ffffff"}}
+          onClick={() => {
+            navigate("/movies/upcoming");
+          }}
+        >
+          Upcoming Movies
+        </Nav.Link>
+
+
+        <NavDropdown   title="Popular"  id="collasible-nav-dropdown" >
+          <NavDropdown.Item 
+            onClick={(e) => {
+              navigate(`/`);
+            }}
+          >
+            Movies
+          </NavDropdown.Item>
+          <NavDropdown.Item
+            onClick={(e) => {
+              navigate(`/tvshow`);
+            }}
+          >
+            TvShow
+          </NavDropdown.Item>
+        </NavDropdown>
+
+
+        <NavDropdown title="TopRated" id="collasible-nav-dropdown" >
+          <NavDropdown.Item id="droplisttt"
+            onClick={(e) => {
+              navigate("/movies/toprated");
+            }}
+          >
+            Movies
+          </NavDropdown.Item>
+          <NavDropdown.Item 
+            onClick={(e) => {
+              navigate(`/tvShow/toprated`);
+            }}
+          >
+            TvShow
+          </NavDropdown.Item>
+        </NavDropdown>
+            <Button style={{backgroundColor:"#212529", border:"none" ,fontSize:"larger"}} id="favButton"
               variant="primary"
               onClick={() => {
                 navigate(`/movies/favorite`);
               }}
             >
-              Favorite List <Badge bg="secondary">{movies}</Badge>
+              ❤ Favorite <Badge style={{borderRadius:"4.25rem" , backgroundColor:"#212529"}} bg="info  ">{movies}</Badge>
               <span className="visually-hidden">unread messages</span>
             </Button>
 
-            <Nav.Link eventKey={2} href="#memes">
-              Dank memes
-            </Nav.Link>
+            
           </Nav>
         </Navbar.Collapse>
       </Container>
